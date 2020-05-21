@@ -2,8 +2,13 @@ import React,{useState,useEffect} from "react";
 
 import {getCategoriesWLanguages, deleteCategory} from "../services/categories";
 import Modal from "./modal";
+import { Link } from "react-router-dom";
 
-const CategoryTable: React.FC = () => {
+interface ITabProps{
+    CategoryId?: string
+}
+
+const CategoryTable: React.FC<ITabProps> = ({CategoryId}) => {
 
     const [categories,setCategories] = useState([]);
     const [updatedCategories,setUpdatedCategories] = useState(false);
@@ -87,7 +92,8 @@ const CategoryTable: React.FC = () => {
                         <th scope="col">Id</th>
                         <th scope="col">Name</th>
                         <th scope="col">Languages Setted</th>
-                        <th scope="col"></th>                
+                        <th scope="col"></th> 
+                        <th scope="col"></th>                  
                     </tr>
                 </thead>
                 <tbody>
@@ -97,13 +103,16 @@ const CategoryTable: React.FC = () => {
                             <td>{data.name}</td>
                             <td>{data.l.length}</td>
                             <td>
+                                <Link className="btn btn-success" to={`/category/${data._id}`}>Go</Link>
+                            </td>
+                            <td>
                                 <button 
                                 type="button" 
                                 className="btn btn-danger" 
                                 onClick={showModal} 
                                 id={data._id}
                                 >Delete</button>
-                            </td>
+                            </td>                           
                     </tr>
                     ))}
                                     
